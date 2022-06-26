@@ -7,6 +7,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import me.btelnyy.nochatreport.constants.Globals;
+
 import org.bukkit.ChatColor;
 
 public class EventListener implements Listener {
@@ -47,7 +48,9 @@ public class EventListener implements Listener {
         event.setCancelled(true);
         String message = String.format(event.getFormat(), event.getPlayer().getDisplayName(), event.getMessage());
         for (Player p : event.getRecipients()) {
-            
+            if(p == event.getPlayer()){
+                continue;
+            }
             p.sendMessage(message);
         }
         //feedback that the message was sent

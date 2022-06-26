@@ -6,3 +6,5 @@ operator_forced_to_use: false
 operator_add_to_list_on_join: true
 #people with this permission will have thier messages replaced
 replace_permission: "btelnyy.replacemessages"
+#should people with the above permission be automatically added to the message replace list?
+permission_add_to_list_on_join: true

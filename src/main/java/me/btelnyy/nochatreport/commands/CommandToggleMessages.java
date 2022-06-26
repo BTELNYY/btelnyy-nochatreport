@@ -22,7 +22,7 @@ public class CommandToggleMessages implements CommandExecutor{
             return true;
         }else{
             Globals.sysMsgPlayers.add(p);
-            p.sendMessage("Added you to the system messages list. (Your messages will now be spoofed to appear as if the server sent them!");
+            p.sendMessage(ChatColor.GRAY + "Added you to the system messages list. (Your messages will now be spoofed to appear as if the server sent them!");
             return true;
         }
     }
