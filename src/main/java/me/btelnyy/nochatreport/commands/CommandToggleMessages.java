@@ -18,11 +18,11 @@ public class CommandToggleMessages implements CommandExecutor{
         Player p = (Player) sender;
         if(Globals.sysMsgPlayers.contains(p)){
             Globals.sysMsgPlayers.remove(p);
-            p.sendMessage(ChatColor.GRAY + "Removed you from the system messages list. (Your messages will now be reportable!");
+            p.sendMessage(ChatColor.GRAY + "Removed you from the system messages list. (Your messages will now be reportable!)");
             return true;
         }else{
             Globals.sysMsgPlayers.add(p);
-            p.sendMessage(ChatColor.GRAY + "Added you to the system messages list. (Your messages will now be spoofed to appear as if the server sent them!");
+            p.sendMessage(ChatColor.GRAY + "Added you to the system messages list. (Your messages will now be spoofed to appear as if the server sent them!)");
             return true;
         }
     }

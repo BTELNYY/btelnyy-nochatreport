@@ -30,6 +30,7 @@ public class NoChatReport extends JavaPlugin {
         ConfigLoader.Load();
         registerCommandExecutor("nochatreport", new CommandToggleMessages());
         registerCommandExecutor("msg", new CommandMsg());
+        registerCommandExecutor("me", new CommandMe());
         //event handle
         getServer().getPluginManager().registerEvents(new EventListener(), this);
         //github
