@@ -1,7 +1,9 @@
 # btelnyy-nochatreport
  Prevent Minecrafts new Chat reports from working while allowing for secure chat
+ 
  Report issues on GitHub or on [Discord](https://discord.gg/P22tFkjTm3)
-
+ 
+ View the spigot resource [Here](https://www.spigotmc.org/resources/nochatreport.102932/)
 ## Commands:
 > `/nochatreport`
 - Toggle if you want your chat replaced with server messages
