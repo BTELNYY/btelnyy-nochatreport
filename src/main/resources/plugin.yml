@@ -1,0 +1,9 @@
+name: btelnyy-nochatreport
+main: me.btelnyy.nochatreport.NoChatReport
+version: ${project.version}
+api-version: 1.18
+commands:
+   nochatreport:
+      description: Change your messages to system messages to remove reports
+      usage: /nochatreport
+      permission: btelnyy.command.nochatreport
