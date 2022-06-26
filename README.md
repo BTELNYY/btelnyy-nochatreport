@@ -7,7 +7,15 @@
 ## Commands:
 > `/nochatreport`
 - Toggle if you want your chat replaced with server messages
-- Permission: btelnyy.command.nochatreport
+- Permission: `btelnyy.command.nochatreport`
+> `/msg <player> <message>`
+- Send a non-reportable message
+- Has the side effect of automatically correcting spaceing mistakes
+- Permission: `btelnyy.command.msg`
+> `/me <action>`
+- Send a non-reportable /me
+- Has the side effect of automatically correcting spaceing mistakes
+- Permission: `btelnyy.command.me`
 ## Config:
 > `everyone_system_messages (bool)`
 - Force everyone's messages to be replaced with server messages
