@@ -1,59 +1,56 @@
 package me.btelnyy.nochatreport.listener;
 
+import me.btelnyy.nochatreport.NoChatReport;
+import me.btelnyy.nochatreport.service.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import me.btelnyy.nochatreport.constants.Globals;
-
-import org.bukkit.ChatColor;
-
 public class EventListener implements Listener {
+    private static final String MESSAGES_SPOOFED = Utils.coloured("&8Your messages are automatically being spoofed, use /nochatreport to stop this.");
+
     @EventHandler
-    public void OnJoin(PlayerJoinEvent event){
-        if(Globals.operatorAutoAddOnJoin && event.getPlayer().isOp()){
-            Globals.AddPlayerToList(event.getPlayer());
-            event.getPlayer().sendMessage(ChatColor.GRAY + "Your messages are automatically being spoofed, use /nochatreport to stop this.");
-            return;
-        }
-        if(Globals.permissionAutoAddOnJoin && event.getPlayer().hasPermission(Globals.replaceMessagePermission)){
-            Globals.AddPlayerToList(event.getPlayer());
-            event.getPlayer().sendMessage(ChatColor.GRAY + "Your messages are automatically being spoofed, use /nochatreport to stop this.");
-            return;
+    public void onJoin(PlayerJoinEvent event){
+        if ((
+                        NoChatReport.getInstance().getConfigData().operatorAutoAddOnJoin &&
+                        event.getPlayer().isOp()
+                ) || (
+                        NoChatReport.getInstance().getConfigData().permissionAutoAddOnJoin &&
+                        event.getPlayer().hasPermission(NoChatReport.getInstance().getConfigData().replaceMessagePermission)
+                )
+        ) {
+            NoChatReport.getInstance().getSystemMessagePlayers().add(event.getPlayer());
+            event.getPlayer().sendMessage(MESSAGES_SPOOFED);
         }
     }
-    @EventHandler
-    public void OnPlayerChat(AsyncPlayerChatEvent event){
-        if(Globals.sysMsgPlayers.contains(event.getPlayer())){
-            ReplaceMessage(event);
-            return;
-        }
-        if(event.getPlayer().isOp() && Globals.operatorsForcedToUse){
-            ReplaceMessage(event);
-            return;
-        }
-        if(event.getPlayer().hasPermission(Globals.replaceMessagePermission)){
-            ReplaceMessage(event);
-            return;
-        }
-        if(Globals.everyoneSysMessages){
-            ReplaceMessage(event);
-            return;
+
+    /*
+        This line will make it so if another plugin cancels the message, the message won't be sent.
+        Example: Muting
+    */
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+    public void onPlayerChat(AsyncPlayerChatEvent event) {
+        if (
+                NoChatReport.getInstance().getSystemMessagePlayers().contains(event.getPlayer()) ||
+                (event.getPlayer().isOp() && NoChatReport.getInstance().getConfigData().operatorsForcedToUse) ||
+                event.getPlayer().hasPermission(NoChatReport.getInstance().getConfigData().replaceMessagePermission) ||
+                NoChatReport.getInstance().getConfigData().everyoneSysMessages
+        ) {
+            replaceMessage(event);
         }
     }
-    static void ReplaceMessage(AsyncPlayerChatEvent event){
-        //prevent duplication of messages
+
+    static void replaceMessage(AsyncPlayerChatEvent event){
+        // Cancel the event itself, so it there won't be duplicate messages
         event.setCancelled(true);
+
+        // Send the message to all players who were supposed to get it
         String message = String.format(event.getFormat(), event.getPlayer().getDisplayName(), event.getMessage());
         for (Player p : event.getRecipients()) {
-            if(p == event.getPlayer()){
-                continue;
-            }
             p.sendMessage(message);
         }
-        //feedback that the message was sent
-        event.getPlayer().sendMessage(message);
     }
 }
