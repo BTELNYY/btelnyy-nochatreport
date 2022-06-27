@@ -4,6 +4,9 @@
  Report issues on GitHub or on [Discord](https://discord.gg/P22tFkjTm3)
  
  View the spigot resource [Here](https://www.spigotmc.org/resources/nochatreport.102932/)
+## Attention Server Owners!
+* If you can, please test and report issues about this plugins compatibility with your plugins
+* Report any issues you see here or Discord
 ## Commands:
 > `/nochatreport`
 - Toggle if you want your chat replaced with server messages
