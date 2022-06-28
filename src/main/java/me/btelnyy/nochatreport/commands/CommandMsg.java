@@ -5,13 +5,18 @@ import me.btelnyy.nochatreport.constants.Globals;
 import me.btelnyy.nochatreport.service.Utils;
 import me.btelnyy.nochatreport.service.file_manager.Configuration;
 import me.btelnyy.nochatreport.service.file_manager.FileID;
+
+import java.util.LinkedList;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-public class CommandMsg implements CommandExecutor{
+public class CommandMsg implements CommandExecutor, TabCompleter{
     private static final String USAGE = "/msg <player> <message>";
     private static String invalidSyntax;
 
@@ -42,6 +47,21 @@ public class CommandMsg implements CommandExecutor{
         target.sendMessage(formatMessage(language.getString("command_msg.target_message_format"), player, target, args));
         player.sendMessage(formatMessage(language.getString("command_msg.sender_message_format"), player, target, args));
         return true;
+    }
+    @Override
+    public List<String> onTabComplete(CommandSender commandSender, Command command, String arg2, String[] args) {
+        // Linked lists are faster when adding stuff
+        List<String> list = new LinkedList<>();
+        if (args.length != 1) {
+            return list;
+        }
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            if (commandSender.getName().equals(p.getName())) {
+                continue;
+            }
+            list.add(p.getName());
+        }
+        return list;
     }
 
     private static String formatMessage(String str, Player sender, Player target, String[] args) {

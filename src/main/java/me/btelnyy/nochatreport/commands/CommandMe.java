@@ -8,13 +8,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 
-import java.util.LinkedList;
-import java.util.List;
 
-public class CommandMe implements CommandExecutor, TabCompleter {
+
+public class CommandMe implements CommandExecutor {
     private static final String USAGE = "/me <action>";
     private static String invalidSyntax;
 
@@ -42,23 +40,6 @@ public class CommandMe implements CommandExecutor, TabCompleter {
         );
         return true;
     }
-
-    @Override
-    public List<String> onTabComplete(CommandSender commandSender, Command command, String arg2, String[] args) {
-        // Linked lists are faster when adding stuff
-        List<String> list = new LinkedList<>();
-        if (args.length != 1) {
-            return list;
-        }
-        for (Player p : Bukkit.getOnlinePlayers()) {
-            if (commandSender.getName().equals(p.getName())) {
-                continue;
-            }
-            list.add(p.getName());
-        }
-        return list;
-    }
-
     public static void updateMessages() {
         invalidSyntax = Utils.coloured(NoChatReport.getInstance().getFileManager().getFile(FileID.LANGUAGE).getConfiguration()
                 .getString("invalid_syntax")

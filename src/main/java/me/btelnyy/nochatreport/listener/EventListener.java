@@ -2,7 +2,7 @@ package me.btelnyy.nochatreport.listener;
 
 import me.btelnyy.nochatreport.NoChatReport;
 import me.btelnyy.nochatreport.constants.Globals;
-import me.btelnyy.nochatreport.playerdata.Data;
+import me.btelnyy.nochatreport.playerdata.PlayerData;
 import me.btelnyy.nochatreport.playerdata.DataHandler;
 import me.btelnyy.nochatreport.service.Utils;
 
@@ -16,6 +16,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 
 public class EventListener implements Listener {
     private static final String MESSAGES_SPOOFED = Utils.coloured("&8Your messages are automatically being spoofed, use /nochatreport to stop this.");
@@ -33,7 +34,7 @@ public class EventListener implements Listener {
             NoChatReport.getInstance().getSystemMessagePlayers().add(event.getPlayer().getUniqueId());
             event.getPlayer().sendMessage(MESSAGES_SPOOFED);
         }
-        Data pd = DataHandler.GetData(event.getPlayer()); //auto adds to the cached players Map in globals
+        PlayerData pd = DataHandler.GetData(event.getPlayer()); //auto adds to the cached players Map in globals
         for(String UUID : pd.ignoredUUIDs){
             Player ignored = Bukkit.getPlayer(UUID);
             if(!Globals.IgnoredPlayers.containsKey(ignored)){
@@ -45,10 +46,23 @@ public class EventListener implements Listener {
             }
         }
     }
+    @EventHandler
+    public void onLeave(PlayerKickEvent event){
+        PlayerData pd = DataHandler.GetData(event.getPlayer()); //auto adds to the cached players Map in globals
+        for(String UUID : pd.ignoredUUIDs){
+            Player ignored = Bukkit.getPlayer(UUID);
+            if(!Globals.IgnoredPlayers.containsKey(ignored)){
+                return;
+            }else{
+                Globals.IgnoredPlayers.get(ignored).remove(event.getPlayer());
+            }
+        }
+    }
 
     /*
         This line will make it so if another plugin cancels the message, the message won't be sent.
         Example: Muting
+        Something doesnt seem quite right... -btelnyy
     */
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerChat(AsyncPlayerChatEvent event) {

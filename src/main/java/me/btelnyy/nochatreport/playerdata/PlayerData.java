@@ -3,7 +3,7 @@ package me.btelnyy.nochatreport.playerdata;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Data {
+public class PlayerData {
     public String PlayerUuid = "";
     public List<String> ignoredUUIDs = new ArrayList<String>();
     //not a mute, it just doesnt send you chat

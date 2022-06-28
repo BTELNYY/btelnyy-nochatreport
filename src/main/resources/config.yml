@@ -12,3 +12,6 @@ permission_add_to_list_on_join: true
 
 # People with this permission will have their messages replaced
 replace_permission: "btelnyy.replacemessages"
+
+# People with this permission cannot be ignored with /ignore
+no_ignore_permission: "btelnyy.noignore"

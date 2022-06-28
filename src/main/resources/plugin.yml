@@ -13,7 +13,23 @@ commands:
         description: Message another user without them being able to report you
         usage: /msg <player> <message>
         permission: btelnyy.command.msg
+    w:
+        description: Message another user (same as /msg)
+        usage: /w <player> <message>
+        permission: btelnyy.command.w
     me:
         description: Like the vanilla /me command
         usage: /me <action>
         permission: btelnyy.command.me
+    ignore:
+        description: Ignore a player (replaces the hide messages function in the socials menu)
+        usage: /ignore <player>
+        permission: btelnyy.command.ignore
+    unignore:
+        descriptiion: Remove a player from your ignore list
+        usage: /unignore <player>
+        permission: btelnyy.command.unignore
+    ignorelist:
+        description: List all players you have ignored
+        usage: /ignorelist
+        permission: btelnyy.command.ignorelist
