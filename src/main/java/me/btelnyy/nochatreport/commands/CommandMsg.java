@@ -24,20 +24,20 @@ public class CommandMsg implements CommandExecutor{
         Configuration language = NoChatReport.getInstance().getFileManager().getFile(FileID.LANGUAGE).getConfiguration();
         if(!(sender instanceof Player player)){
             sender.sendMessage(Utils.coloured(language.getString("not_player")));
-            return false;
+            return true;
         }
         if(args.length < 2){
             sender.sendMessage(invalidSyntax);
-            return false;
+            return true;
         }
         Player target = Bukkit.getPlayer(args[0]);
         if (target == null){
             player.sendMessage(Utils.coloured(language.getString("player_not_found")));
-            return false;
+            return true;
         }
         if(Globals.IgnoredPlayers.get(player).contains(target)){
             player.sendMessage(Utils.colored(language.getString("cannot_message_player")));
-            return false;
+            return true;
         }
         target.sendMessage(formatMessage(language.getString("command_msg.target_message_format"), player, target, args));
         player.sendMessage(formatMessage(language.getString("command_msg.sender_message_format"), player, target, args));

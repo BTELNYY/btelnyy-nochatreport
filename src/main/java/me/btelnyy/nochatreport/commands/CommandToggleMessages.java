@@ -16,7 +16,7 @@ public class CommandToggleMessages implements CommandExecutor{
         Configuration language = NoChatReport.getInstance().getFileManager().getFile(FileID.LANGUAGE).getConfiguration();
         if (!(sender instanceof Player player)){
             sender.sendMessage(Utils.coloured(language.getString("not_player")));
-            return false;
+            return true;
         }
         UUID uuid = player.getUniqueId();
         if (NoChatReport.getInstance().getSystemMessagePlayers().contains(uuid)){

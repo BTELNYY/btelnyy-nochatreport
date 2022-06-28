@@ -28,11 +28,11 @@ public class CommandMe implements CommandExecutor, TabCompleter {
         // If it is an instance of Player, it automatically assigns it to the "player" variable
         if(!(sender instanceof Player player)){
             sender.sendMessage(Utils.coloured(language.getString("not_player")));
-            return false;
+            return true;
         }
         if (args.length > 1){
             player.sendMessage(invalidSyntax);
-            return false;
+            return true;
         }
         Bukkit.broadcastMessage(Utils.coloured(
                 language.getString("command_me.message_format")
