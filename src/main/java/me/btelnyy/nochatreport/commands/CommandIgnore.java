@@ -44,7 +44,7 @@ public class CommandIgnore implements CommandExecutor, TabCompleter{
         }
         PlayerData pdata = DataHandler.GetData(player);
         pdata.ignoredUUIDs.add(target.getUniqueId().toString());
-        Globals.IgnoredPlayers.get(target).add(player);
+        Globals.IgnoredPlayers.get(target.getUniqueId().toString()).add(player.getUniqueId().toString());
         player.sendMessage(Utils.colored(language.getString("ignored_success").replace("{player_name}", target.getName())));
         return true;
     }

@@ -35,7 +35,7 @@ public class CommandMe implements CommandExecutor {
         Bukkit.broadcastMessage(Utils.coloured(
                 language.getString("command_me.message_format")
                         .replace("{player_name}", player.getDisplayName())
-                        .replace("{message}", Utils.buildMessage(args))
+                        .replace("{message}", Utils.buildMessage(args, true))
             )
         );
         return true;

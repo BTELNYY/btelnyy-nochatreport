@@ -34,15 +34,15 @@ public class EventListener implements Listener {
             NoChatReport.getInstance().getSystemMessagePlayers().add(event.getPlayer().getUniqueId());
             event.getPlayer().sendMessage(MESSAGES_SPOOFED);
         }
+        DataHandler.CreateNewDataFile(event.getPlayer());
         PlayerData pd = DataHandler.GetData(event.getPlayer()); //auto adds to the cached players Map in globals
         for(String UUID : pd.ignoredUUIDs){
-            Player ignored = Bukkit.getPlayer(UUID);
-            if(!Globals.IgnoredPlayers.containsKey(ignored)){
-                List<Player> list = new ArrayList<Player>();
-                list.add(event.getPlayer());
-                Globals.IgnoredPlayers.put(ignored, list);
+            if(!Globals.IgnoredPlayers.containsKey(UUID)){
+                List<String> list = new ArrayList<String>();
+                list.add(event.getPlayer().getUniqueId().toString());
+                Globals.IgnoredPlayers.put(UUID, list);
             }else{
-                Globals.IgnoredPlayers.get(ignored).add(event.getPlayer());
+                Globals.IgnoredPlayers.get(UUID).add(event.getPlayer().getUniqueId().toString());
             }
         }
     }
@@ -50,11 +50,10 @@ public class EventListener implements Listener {
     public void onLeave(PlayerKickEvent event){
         PlayerData pd = DataHandler.GetData(event.getPlayer()); //auto adds to the cached players Map in globals
         for(String UUID : pd.ignoredUUIDs){
-            Player ignored = Bukkit.getPlayer(UUID);
-            if(!Globals.IgnoredPlayers.containsKey(ignored)){
+            if(!Globals.IgnoredPlayers.containsKey(UUID)){
                 return;
             }else{
-                Globals.IgnoredPlayers.get(ignored).remove(event.getPlayer());
+                Globals.IgnoredPlayers.get(UUID).remove(event.getPlayer().getUniqueId().toString());
             }
         }
     }
@@ -84,8 +83,10 @@ public class EventListener implements Listener {
 
         // Send the message to all players who were supposed to get it
         String message = String.format(event.getFormat(), event.getPlayer().getDisplayName(), event.getMessage());
-        for(Player p : Globals.IgnoredPlayers.get(event.getPlayer())){
-            event.getRecipients().remove(p);
+        if(Globals.IgnoredPlayers.get(event.getPlayer().getUniqueId().toString()) != null){
+            for(String p : Globals.IgnoredPlayers.get(event.getPlayer().getUniqueId().toString())){
+                event.getRecipients().remove(Bukkit.getPlayer(p));
+            }
         }
         for (Player p : event.getRecipients()) {
             p.sendMessage(message);

@@ -40,12 +40,14 @@ public class CommandMsg implements CommandExecutor, TabCompleter{
             player.sendMessage(Utils.coloured(language.getString("player_not_found")));
             return true;
         }
-        if(Globals.IgnoredPlayers.get(player).contains(target)){
-            player.sendMessage(Utils.colored(language.getString("cannot_message_player")));
-            return true;
+        if(Globals.IgnoredPlayers.get(player.getUniqueId().toString()) != null){
+            if(Globals.IgnoredPlayers.get(player.getUniqueId().toString()).contains(target.getUniqueId().toString())){
+                player.sendMessage(Utils.colored(language.getString("cannot_message_player")));
+                return true;
+            }
         }
-        target.sendMessage(formatMessage(language.getString("command_msg.target_message_format"), player, target, args));
-        player.sendMessage(formatMessage(language.getString("command_msg.sender_message_format"), player, target, args));
+        target.sendMessage(Utils.colored(formatMessage(language.getString("command_msg.target_message_format"), player, target, args)));
+        player.sendMessage(Utils.colored(formatMessage(language.getString("command_msg.sender_message_format"), player, target, args)));
         return true;
     }
     @Override
@@ -68,7 +70,7 @@ public class CommandMsg implements CommandExecutor, TabCompleter{
         return str
                 .replace("{target_name}", target.getDisplayName())
                 .replace("{sender_name}", sender.getDisplayName())
-                .replace("{message}", Utils.buildMessage(args));
+                .replace("{message}", Utils.colored(Utils.buildMessage(args, true)));
     }
 
     public static void updateMessages() {

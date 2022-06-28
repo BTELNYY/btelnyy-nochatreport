@@ -1,5 +1,7 @@
 package me.btelnyy.nochatreport.service;
 
+import java.util.Arrays;
+
 import org.bukkit.ChatColor;
 
 public class Utils {
@@ -16,12 +18,18 @@ public class Utils {
         return coloured(str);
     }
 
-    public static String buildMessage(String[] parts) {
-        StringBuilder message = new StringBuilder();
-        for (String part : parts) {
-            message.append(part);
-            message.append(" ");
+    public static String buildMessage(String[] parts, boolean ignorefirst) {
+        String message = "";
+        if(ignorefirst){
+            String[] yourArray = Arrays.copyOfRange(parts, 1, parts.length);
+            for(String part : yourArray){
+                message += part + " ";
+            }
+        }else{
+            for (String part : parts) {
+                message += part + " ";
+            }
         }
-        return message.toString();
+        return message;
     }
 }

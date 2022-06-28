@@ -12,5 +12,5 @@ ignorelist_result_message: "&7Ignore list:"
 command_me:
     message_format: "* {player_name} {message}"
 command_msg:
-    sender_message_format: "&8&o You: -> {target_name}: {message}"
-    target_message_format: "&8&o {sender_name} -> You: {message}"
+    sender_message_format: "&r&7&oTo {target_name}&r&7&o: &r&7&o{message}"
+    target_message_format: "&r&7&oFrom {sender_name}&r&7&o: &r&7&o{message}"

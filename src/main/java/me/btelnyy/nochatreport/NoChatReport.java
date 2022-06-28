@@ -57,11 +57,14 @@ public class NoChatReport extends JavaPlugin {
         registerCommandExecutor("nochatreport", new CommandToggleMessages());
         registerCommandExecutor("msg", new CommandMsg(), new CommandMsg());
         registerCommandExecutor("me", new CommandMe());
+        registerCommandExecutor("w", new CommandMsg(), new CommandMsg());
+        registerCommandExecutor("tell", new CommandMsg(), new CommandMsg());
         registerCommandExecutor("ignore", new CommandIgnore(), new CommandIgnore());
         registerCommandExecutor("unignore", new CommandUnignore(), new CommandUnignore());
         registerCommandExecutor("ignorelist", new CommandIgnoreList());
 
-
+        // SnakeYAML fix
+        Thread.currentThread().setContextClassLoader(this.getClassLoader());
 
         // generate data folder (if needed)
         DataHandler.GenerateFolder();
