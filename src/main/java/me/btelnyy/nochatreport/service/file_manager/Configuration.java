@@ -1,17 +1,17 @@
-package me.btelnyy.nochatreport.service;
+package me.btelnyy.nochatreport.service.file_manager;
 
 import me.btelnyy.nochatreport.NoChatReport;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
-/*
-This class is just a user-friendly wrapper around FileConfiguration
- */
-@SuppressWarnings("ALL")
+@SuppressWarnings("unused")
 public class Configuration {
     private static final Plugin instance = NoChatReport.getInstance();
     private final ConfigurationSection config;
@@ -104,6 +104,13 @@ public class Configuration {
         invalid(path);
         return new Configuration(config.createSection(path));
     }
+    public ItemStack getItemStack(String path) {
+        if (config.contains(path)) {
+            return config.getItemStack(path);
+        }
+        invalid(path);
+        return new ItemStack(Material.STONE);
+    }
     public Configuration set(String path, Object o) {
         config.set(path, o);
         return this;
@@ -121,7 +128,8 @@ public class Configuration {
         if (!log) {
             return;
         }
-        String message = String.format("There is a missing value (%s > %s)", self().getCurrentPath().replace(".", " > "), path.replace(".", " > "));
+        String message = String.format("There is a missing value (%s > %s)", Objects.requireNonNull(self().getCurrentPath()).replace(".", " > "), path.replace(".", " > "));
         instance.getLogger().warning(message);
     }
 }
+
