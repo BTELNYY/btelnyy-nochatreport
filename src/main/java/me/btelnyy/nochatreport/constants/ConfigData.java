@@ -1,6 +1,6 @@
 package me.btelnyy.nochatreport.constants;
 
-import me.btelnyy.nochatreport.service.Configuration;
+import me.btelnyy.nochatreport.service.file_manager.Configuration;
 
 public class ConfigData {
     public boolean everyoneSysMessages;
@@ -17,5 +17,4 @@ public class ConfigData {
 
         replaceMessagePermission = config.getString("replace_permission");
     }
-
 }

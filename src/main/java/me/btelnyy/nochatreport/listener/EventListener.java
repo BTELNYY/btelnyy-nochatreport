@@ -22,7 +22,7 @@ public class EventListener implements Listener {
                         event.getPlayer().hasPermission(NoChatReport.getInstance().getConfigData().replaceMessagePermission)
                 )
         ) {
-            NoChatReport.getInstance().getSystemMessagePlayers().add(event.getPlayer());
+            NoChatReport.getInstance().getSystemMessagePlayers().add(event.getPlayer().getUniqueId());
             event.getPlayer().sendMessage(MESSAGES_SPOOFED);
         }
     }
@@ -34,7 +34,7 @@ public class EventListener implements Listener {
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
         if (
-                NoChatReport.getInstance().getSystemMessagePlayers().contains(event.getPlayer()) ||
+                NoChatReport.getInstance().getSystemMessagePlayers().contains(event.getPlayer().getUniqueId()) ||
                 (event.getPlayer().isOp() && NoChatReport.getInstance().getConfigData().operatorsForcedToUse) ||
                 event.getPlayer().hasPermission(NoChatReport.getInstance().getConfigData().replaceMessagePermission) ||
                 NoChatReport.getInstance().getConfigData().everyoneSysMessages

@@ -5,14 +5,16 @@ import me.btelnyy.nochatreport.commands.CommandMsg;
 import me.btelnyy.nochatreport.commands.CommandToggleMessages;
 import me.btelnyy.nochatreport.constants.ConfigData;
 import me.btelnyy.nochatreport.listener.EventListener;
-import me.btelnyy.nochatreport.service.Configuration;
+import me.btelnyy.nochatreport.service.file_manager.Configuration;
+import me.btelnyy.nochatreport.service.file_manager.FileID;
+import me.btelnyy.nochatreport.service.file_manager.FileManager;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 public class NoChatReport extends JavaPlugin {
     // An instance of the plugin, so we don't need to make everything static
@@ -20,13 +22,18 @@ public class NoChatReport extends JavaPlugin {
 
     private Configuration config;
     private ConfigData configData;
+    private FileManager fileManager;
 
-    private List<Player> systemMessagePlayers = new ArrayList();
+    private final LinkedList<UUID> systemMessagePlayers = new LinkedList<>();
 
     @Override
     public void onEnable() {
         // Self-explanatory
         instance = this;
+
+        // Generate files
+        fileManager = new FileManager(this);
+        fileManager.addFile(FileID.LANGUAGE, fileManager.create(null, "language.yml"));
 
         // Load config
         saveDefaultConfig();
@@ -73,7 +80,11 @@ public class NoChatReport extends JavaPlugin {
         return configData;
     }
 
-    public List<Player> getSystemMessagePlayers() {
+    public List<UUID> getSystemMessagePlayers() {
         return systemMessagePlayers;
+    }
+
+    public FileManager getFileManager() {
+        return fileManager;
     }
 }

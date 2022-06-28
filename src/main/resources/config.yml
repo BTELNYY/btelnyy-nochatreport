@@ -7,8 +7,8 @@ operator_forced_to_use: false
 # Auto add ops to the replace list on join?
 operator_add_to_list_on_join: true
 
-# People with this permission will have their messages replaced
-replace_permission: "btelnyy.replacemessages"
-
 # Should people with the above permission be automatically added to the message replace list?
 permission_add_to_list_on_join: true
+
+# People with this permission will have their messages replaced
+replace_permission: "btelnyy.replacemessages"
