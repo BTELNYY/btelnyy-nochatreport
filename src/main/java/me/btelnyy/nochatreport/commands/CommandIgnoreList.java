@@ -25,7 +25,7 @@ public class CommandIgnoreList implements CommandExecutor{
         String result = "";
         for(String pid : DataHandler.GetData(player).ignoredUUIDs){
             UUID id = UUID.fromString(pid);
-            result += Bukkit.getOfflinePlayer(id) + ", ";
+            result += Bukkit.getOfflinePlayer(id).getName() + ", ";
         }
         player.sendMessage(Utils.colored(language.getString("ignorelist_result_message") + "(" + DataHandler.GetData(player).ignoredUUIDs.size() + ")" + "\n&7" + result));
         return true;
