@@ -15,6 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
 
 public class NoChatReport extends JavaPlugin {
     // An instance of the plugin, so we don't need to make everything static
@@ -56,6 +57,9 @@ public class NoChatReport extends JavaPlugin {
 
         // GitHub message
         getLogger().info("Check out the project on GitHub! https://github.com/BTELNYY/btelnyy-nochatreport");
+    }
+    public void log(Level level, Object message){
+        getLogger().log(level, message.toString());
     }
 
     private void registerCommandExecutor(String commandName, CommandExecutor commandExecutor) {

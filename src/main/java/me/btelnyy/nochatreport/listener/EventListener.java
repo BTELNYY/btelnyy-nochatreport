@@ -1,7 +1,15 @@
 package me.btelnyy.nochatreport.listener;
 
 import me.btelnyy.nochatreport.NoChatReport;
+import me.btelnyy.nochatreport.constants.Globals;
+import me.btelnyy.nochatreport.playerdata.Data;
+import me.btelnyy.nochatreport.playerdata.DataHandler;
 import me.btelnyy.nochatreport.service.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -25,6 +33,17 @@ public class EventListener implements Listener {
             NoChatReport.getInstance().getSystemMessagePlayers().add(event.getPlayer().getUniqueId());
             event.getPlayer().sendMessage(MESSAGES_SPOOFED);
         }
+        Data pd = DataHandler.GetData(event.getPlayer()); //auto adds to the cached players Map in globals
+        for(String UUID : pd.ignoredUUIDs){
+            Player ignored = Bukkit.getPlayer(UUID);
+            if(!Globals.IgnoredPlayers.containsKey(ignored)){
+                List<Player> list = new ArrayList<Player>();
+                list.add(event.getPlayer());
+                Globals.IgnoredPlayers.put(ignored, list);
+            }else{
+                Globals.IgnoredPlayers.get(ignored).add(event.getPlayer());
+            }
+        }
     }
 
     /*
@@ -43,12 +62,17 @@ public class EventListener implements Listener {
         }
     }
 
+
+
     static void replaceMessage(AsyncPlayerChatEvent event){
         // Cancel the event itself, so it there won't be duplicate messages
         event.setCancelled(true);
 
         // Send the message to all players who were supposed to get it
         String message = String.format(event.getFormat(), event.getPlayer().getDisplayName(), event.getMessage());
+        for(Player p : Globals.IgnoredPlayers.get(event.getPlayer())){
+            event.getRecipients().remove(p);
+        }
         for (Player p : event.getRecipients()) {
             p.sendMessage(message);
         }

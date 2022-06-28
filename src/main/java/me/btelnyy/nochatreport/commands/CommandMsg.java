@@ -1,6 +1,7 @@
 package me.btelnyy.nochatreport.commands;
 
 import me.btelnyy.nochatreport.NoChatReport;
+import me.btelnyy.nochatreport.constants.Globals;
 import me.btelnyy.nochatreport.service.Utils;
 import me.btelnyy.nochatreport.service.file_manager.Configuration;
 import me.btelnyy.nochatreport.service.file_manager.FileID;
@@ -34,7 +35,10 @@ public class CommandMsg implements CommandExecutor{
             player.sendMessage(Utils.coloured(language.getString("player_not_found")));
             return false;
         }
-
+        if(Globals.IgnoredPlayers.get(player).contains(target)){
+            player.sendMessage(Utils.colored(language.getString("cannot_message_player")));
+            return false;
+        }
         target.sendMessage(formatMessage(language.getString("command_msg.target_message_format"), player, target, args));
         player.sendMessage(formatMessage(language.getString("command_msg.sender_message_format"), player, target, args));
         return true;
