@@ -15,11 +15,12 @@
 - Send a non-reportable message
 - Has the side effect of automatically correcting spaceing mistakes
 - Permission: `btelnyy.command.msg`
+### Quick Note about ignoring: it only works when the users messages are being replaced by the plugin
 > `/ignore <player>`
 - Prevents messages from this player from being displayed to you
 - Operators and people with the permission `no_ignore_permission` cannot be ignored
 - Permission: `btelnyy.command.ignore`
-> `/unignore <player>
+> `/unignore <player>`
 - Allows messages from this player to be displayed to you
 - Permission: `btelnyy.command.unignore`
 > `/ignorelist`
