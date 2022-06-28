@@ -11,10 +11,20 @@
 > `/nochatreport`
 - Toggle if you want your chat replaced with server messages
 - Permission: `btelnyy.command.nochatreport`
-> `/msg <player> <message>`
+> `/msg <player> <message>` (also works with `/w`)
 - Send a non-reportable message
 - Has the side effect of automatically correcting spaceing mistakes
 - Permission: `btelnyy.command.msg`
+> `/ignore <player>`
+- Prevents messages from this player from being displayed to you
+- Operators and people with the permission `no_ignore_permission` cannot be ignored
+- Permission: `btelnyy.command.ignore`
+> `/unignore <player>
+- Allows messages from this player to be displayed to you
+- Permission: `btelnyy.command.unignore`
+> `/ignorelist`
+- Show who you are ignoring
+- Permission: `btelnyy.command.ignorelist`
 > `/me <action>`
 - Send a non-reportable /me
 - Has the side effect of automatically correcting spaceing mistakes
@@ -39,3 +49,6 @@
 > `replace_permission: (permission)`
 - Default: "btelnyy.replacemessages"
 - People with this permission can have their messages replaced
+
+> `no_ignore_permission` (permission)
+- Prevent players with this permission from being ignored with `/ignore`
