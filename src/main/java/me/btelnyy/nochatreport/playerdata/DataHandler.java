@@ -164,12 +164,12 @@ public class DataHandler {
 
     public static PlayerData CreateNewDataFile(String UUID) {
         Yaml yaml = new Yaml();
-        File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
         PlayerData pd = new PlayerData();
         Bukkit.getScheduler().runTaskAsynchronously(NoChatReport.getInstance(), new Runnable() {
                 @Override
                 public void run() {
                 try {
+                    File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
                     player_data.createNewFile();
                     FileWriter writer = new FileWriter(player_data);
                     pd.PlayerUuid = UUID;
@@ -188,12 +188,12 @@ public class DataHandler {
     public static PlayerData CreateNewDataFile(Player player) {
         String UUID = player.getUniqueId().toString();
         Yaml yaml = new Yaml();
-        File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
         PlayerData pd = new PlayerData();
         Bukkit.getScheduler().runTaskAsynchronously(NoChatReport.getInstance(), new Runnable() {
                 @Override
                 public void run() {
                 try {
+                    File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
                     player_data.createNewFile();
                     FileWriter writer = new FileWriter(player_data);
                     pd.PlayerUuid = UUID;
@@ -262,11 +262,12 @@ public class DataHandler {
     public static void SaveData(PlayerData player) {
         String UUID = player.getUniqueId();
         Yaml yaml = new Yaml();
-        File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
         Bukkit.getScheduler().runTaskAsynchronously(NoChatReport.getInstance(), new Runnable() {
             @Override
             public void run() {
-                try (FileWriter writer = new FileWriter(player_data)) {
+                try{
+                    File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
+                    FileWriter writer = new FileWriter(player_data);
                     PlayerData pd = Globals.CachedPlayers.get(UUID);
                     yaml.dump(pd, writer);
                     writer.close();
