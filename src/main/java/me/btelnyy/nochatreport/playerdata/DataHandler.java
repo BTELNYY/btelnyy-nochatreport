@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import me.btelnyy.nochatreport.NoChatReport;
 import me.btelnyy.nochatreport.constants.Globals;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import org.yaml.snakeyaml.Yaml;
@@ -19,15 +20,20 @@ public class DataHandler {
     static String path = Globals.Path;
 
     public static void GenerateFolder() {
-        Path cur_config = Path.of(path);
-        if (Files.notExists(cur_config, LinkOption.NOFOLLOW_LINKS)) {
-            try {
-                Files.createDirectory(cur_config);
-            } catch (Exception e) {
-                NoChatReport.getInstance().log(Level.SEVERE, "Can't create data folder! Folder path: " + path + "Error: " + e.getMessage());
-                e.printStackTrace();
+        Bukkit.getScheduler().runTaskAsynchronously(NoChatReport.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                Path cur_config = Path.of(path);
+                if (Files.notExists(cur_config, LinkOption.NOFOLLOW_LINKS)) {
+                    try {
+                        Files.createDirectory(cur_config);
+                    } catch (Exception e) {
+                        NoChatReport.getInstance().log(Level.SEVERE, "Can't create data folder! Folder path: " + path + "Error: " + e.getMessage());
+                        e.printStackTrace();
+                    }
+                }
             }
-        }
+        });
     }
 
     public static String generatePlayerFolder(String UUID){
@@ -159,132 +165,117 @@ public class DataHandler {
     public static PlayerData CreateNewDataFile(String UUID) {
         Yaml yaml = new Yaml();
         File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
-        try {
-            player_data.createNewFile();
-            FileWriter writer = new FileWriter(player_data);
-            PlayerData pd = new PlayerData();
-            pd.PlayerUuid = UUID;
-            yaml.dump(pd, writer);
-            //yaml.dumpAll(pd.Transactions.iterator(), writer);
-            writer.close();
-            return pd;
-        } catch (Exception e) {
-            PlayerData pd = new PlayerData();
-            pd.PlayerUuid = UUID;
-            NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to create Data for " + UUID + ": " + e.getMessage());
-            return pd;
-        }
+        PlayerData pd = new PlayerData();
+        Bukkit.getScheduler().runTaskAsynchronously(NoChatReport.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                try {
+                    player_data.createNewFile();
+                    FileWriter writer = new FileWriter(player_data);
+                    pd.PlayerUuid = UUID;
+                    yaml.dump(pd, writer);
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    PlayerData pd = new PlayerData();
+                    pd.PlayerUuid = UUID;
+                    NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to create Data for " + UUID + ": " + e.getMessage());
+                }
+            }
+        });
+        return pd;
     }
     public static PlayerData CreateNewDataFile(Player player) {
         String UUID = player.getUniqueId().toString();
         Yaml yaml = new Yaml();
         File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
-        try {
-            player_data.createNewFile();
-            FileWriter writer = new FileWriter(player_data);
-            PlayerData pd = new PlayerData();
-            pd.PlayerUuid = UUID;
-            yaml.dump(pd, writer);
-            writer.close();
-            return pd;
-        } catch (Exception e) {
-            PlayerData pd = new PlayerData();
-            pd.PlayerUuid = UUID;
-            NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to create Data for " + UUID + ": " + e.getMessage());
-            return pd;
-        }
+        PlayerData pd = new PlayerData();
+        Bukkit.getScheduler().runTaskAsynchronously(NoChatReport.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                try {
+                    player_data.createNewFile();
+                    FileWriter writer = new FileWriter(player_data);
+                    pd.PlayerUuid = UUID;
+                    yaml.dump(pd, writer);
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    PlayerData pd = new PlayerData();
+                    pd.PlayerUuid = UUID;
+                    NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to create Data for " + UUID + ": " + e.getMessage());
+                }
+            }
+        });
+        return pd;
     }
 
     public static void SaveAndRemoveData(String UUID) {
-        Yaml yaml = new Yaml();
-        File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
-        try {
-            FileWriter writer = new FileWriter(player_data);
-            PlayerData pd = Globals.CachedPlayers.get(UUID);
-            yaml.dump(pd, writer);
-            //yaml.dumpAll(pd.Transactions.iterator(), writer);
-            writer.close();
-            NoChatReport.getInstance().log(Level.INFO, "Saving " + UUID + "'s data");
-            Globals.CachedPlayers.remove(UUID);
-        } catch (Exception e) {
-            NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to save Data for " + UUID + ": " + e.getMessage());
-        }
+        SaveData(UUID);
+        Globals.CachedPlayers.remove(UUID);
     }
     public static void SaveAndRemoveData(Player player) {
         String UUID = player.getUniqueId().toString();
-        Yaml yaml = new Yaml();
-        File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
-        try {
-            FileWriter writer = new FileWriter(player_data);
-            PlayerData pd = Globals.CachedPlayers.get(UUID);
-            yaml.dump(pd, writer);
-            //yaml.dumpAll(pd.Transactions.iterator(), writer);
-            writer.close();
-            NoChatReport.getInstance().log(Level.INFO, "Saving " + UUID + "'s data");
-            Globals.CachedPlayers.remove(UUID);
-        } catch (Exception e) {
-            NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to save Data for " + UUID + ": " + e.getMessage());
-        }
+        SaveData(player);
+        Globals.CachedPlayers.remove(UUID);
     }
     public static void SaveAndRemoveData(PlayerData player) {
         String UUID = player.getUniqueId();
-        Yaml yaml = new Yaml();
-        File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
-        try {
-            FileWriter writer = new FileWriter(player_data);
-            PlayerData pd = Globals.CachedPlayers.get(UUID);
-            yaml.dump(pd, writer);
-            //yaml.dumpAll(pd.Transactions.iterator(), writer);
-            writer.close();
-            NoChatReport.getInstance().log(Level.INFO, "Saving " + UUID + "'s data");
-            Globals.CachedPlayers.remove(UUID);
-        } catch (Exception e) {
-            NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to save Data for " + UUID + ": " + e.getMessage());
-        }
+        SaveData(player);
+        Globals.CachedPlayers.remove(UUID);
     }
     public static void SaveData(String UUID) {
         Yaml yaml = new Yaml();
         File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
-        try {
-            FileWriter writer = new FileWriter(player_data);
-            PlayerData pd = Globals.CachedPlayers.get(UUID);
-            yaml.dump(pd, writer);
-            //yaml.dumpAll(pd.Transactions.iterator(), writer);
-            writer.close();
-            NoChatReport.getInstance().log(Level.INFO, "Saving " + UUID + "'s data");
-        } catch (Exception e) {
-            NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to save Data for " + UUID + ": " + e.getMessage());
-        }
+        Bukkit.getScheduler().runTaskAsynchronously(NoChatReport.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                try (FileWriter writer = new FileWriter(player_data)) {
+                    PlayerData pd = Globals.CachedPlayers.get(UUID);
+                    yaml.dump(pd, writer);
+                    writer.close();
+                    NoChatReport.getInstance().log(Level.INFO, "Saving " + UUID + "'s data");
+                }catch(Exception e){
+                    NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to save Data for " + UUID + ": " + e.getMessage());
+                }
+            }
+        });
     }
     public static void SaveData(Player player) {
         String UUID = player.getUniqueId().toString();
         Yaml yaml = new Yaml();
         File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
-        try {
-            FileWriter writer = new FileWriter(player_data);
-            PlayerData pd = Globals.CachedPlayers.get(UUID);
-            yaml.dump(pd, writer);
-            //yaml.dumpAll(pd.Transactions.iterator(), writer);
-            writer.close();
-            NoChatReport.getInstance().log(Level.INFO, "Saving " + UUID + "'s data");
-        } catch (Exception e) {
-            NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to save Data for " + UUID + ": " + e.getMessage());
-        }
+        Bukkit.getScheduler().runTaskAsynchronously(NoChatReport.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                try (FileWriter writer = new FileWriter(player_data)) {
+                    PlayerData pd = Globals.CachedPlayers.get(UUID);
+                    yaml.dump(pd, writer);
+                    writer.close();
+                    NoChatReport.getInstance().log(Level.INFO, "Saving " + UUID + "'s data");
+                }catch(Exception e){
+                    NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to save Data for " + UUID + ": " + e.getMessage());
+                }
+            }
+        });
     }
     public static void SaveData(PlayerData player) {
         String UUID = player.getUniqueId();
         Yaml yaml = new Yaml();
         File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
-        try {
-            FileWriter writer = new FileWriter(player_data);
-            PlayerData pd = Globals.CachedPlayers.get(UUID);
-            yaml.dump(pd, writer);
-            //yaml.dumpAll(pd.Transactions.iterator(), writer);
-            writer.close();
-            NoChatReport.getInstance().log(Level.INFO, "Saving " + UUID + "'s data");
-        } catch (Exception e) {
-            NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to save Data for " + UUID + ": " + e.getMessage());
-        }
+        Bukkit.getScheduler().runTaskAsynchronously(NoChatReport.getInstance(), new Runnable() {
+            @Override
+            public void run() {
+                try (FileWriter writer = new FileWriter(player_data)) {
+                    PlayerData pd = Globals.CachedPlayers.get(UUID);
+                    yaml.dump(pd, writer);
+                    writer.close();
+                    NoChatReport.getInstance().log(Level.INFO, "Saving " + UUID + "'s data");
+                }catch(Exception e){
+                    NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to save Data for " + UUID + ": " + e.getMessage());
+                }
+            }
+        });
     }
 
     public static void ResetData(String UUID) {
