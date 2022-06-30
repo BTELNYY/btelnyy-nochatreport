@@ -5,6 +5,8 @@ import me.btelnyy.nochatreport.constants.Globals;
 import me.btelnyy.nochatreport.playerdata.PlayerData;
 import me.btelnyy.nochatreport.playerdata.DataHandler;
 import me.btelnyy.nochatreport.service.Utils;
+import me.btelnyy.nochatreport.service.file_manager.Configuration;
+import me.btelnyy.nochatreport.service.file_manager.FileID;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +21,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerKickEvent;
 
 public class EventListener implements Listener {
-    private static final String MESSAGES_SPOOFED = Utils.coloured("&8Your messages are automatically being spoofed, use /nochatreport to stop this.");
-
+    private static final Configuration language = NoChatReport.getInstance().getFileManager().getFile(FileID.LANGUAGE).getConfiguration();
+    private static final String MESSAGES_SPOOFED = Utils.coloured(language.getString("message_spoofed"));
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
         if ((
@@ -75,8 +77,6 @@ public class EventListener implements Listener {
         }
     }
 
-
-
     static void replaceMessage(AsyncPlayerChatEvent event){
         // Cancel the event itself, so it there won't be duplicate messages
         event.setCancelled(true);
@@ -90,6 +90,7 @@ public class EventListener implements Listener {
         }
         for (Player p : event.getRecipients()) {
             p.sendMessage(message);
+            NoChatReport.getInstance().getLogger().info("[CHAT] " + message);
         }
     }
 }

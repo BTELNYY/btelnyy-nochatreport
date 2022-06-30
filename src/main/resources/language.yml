@@ -1,6 +1,7 @@
 not_player: "&cError: &7You must be a player to run this command."
 invalid_syntax: "&cError: &7Invalid syntax. Syntax: {usage}"
 player_not_found: "&cError: &7Player not found."
+message_spoofed: "&8Your messages are automatically being spoofed, use /nochatreport to stop this."
 cannot_message_player: "&cError: &7You cannot message this player."
 removed_from_sys_list: "&c - &7Removed you from the syst em messages list. (Your messages will now be reportable!)"
 added_to_sys_list: "&a + &7Added you to the system messages list. (Your messages will now be spoofed to appear as if the server sent them!)"
