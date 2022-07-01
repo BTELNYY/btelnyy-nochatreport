@@ -28,4 +28,5 @@ replay_pid*
 target/
 bin/
 .vscode/
+.idea/
 .settings/
