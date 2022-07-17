@@ -4,7 +4,7 @@ import me.btelnyy.nochatreport.commands.CommandIgnore;
 import me.btelnyy.nochatreport.commands.CommandIgnoreList;
 import me.btelnyy.nochatreport.commands.CommandMe;
 import me.btelnyy.nochatreport.commands.CommandMsg;
-import me.btelnyy.nochatreport.commands.CommandToggleMessages;
+import me.btelnyy.nochatreport.commands.CommandNCR;
 import me.btelnyy.nochatreport.commands.CommandUnignore;
 import me.btelnyy.nochatreport.constants.ConfigData;
 import me.btelnyy.nochatreport.listener.EventListener;
@@ -54,7 +54,7 @@ public class NoChatReport extends JavaPlugin {
         }
 
         // Register commands
-        registerCommandExecutor("nochatreport", new CommandToggleMessages());
+        registerCommandExecutor("nochatreport", new CommandNCR());
         registerCommandExecutor("msg", new CommandMsg(), new CommandMsg());
         registerCommandExecutor("me", new CommandMe());
         registerCommandExecutor("w", new CommandMsg(), new CommandMsg());

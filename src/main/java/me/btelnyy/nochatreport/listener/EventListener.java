@@ -63,10 +63,13 @@ public class EventListener implements Listener {
     /*
         This line will make it so if another plugin cancels the message, the message won't be sent.
         Example: Muting
-        Something doesnt seem quite right... -btelnyy
     */
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerChat(AsyncPlayerChatEvent event) {
+        //no messages will be replaced if the toggle is active
+        if(!Globals.pluginToggle){
+            return;
+        }
         if (
                 NoChatReport.getInstance().getSystemMessagePlayers().contains(event.getPlayer().getUniqueId()) ||
                 (event.getPlayer().isOp() && NoChatReport.getInstance().getConfigData().operatorsForcedToUse) ||

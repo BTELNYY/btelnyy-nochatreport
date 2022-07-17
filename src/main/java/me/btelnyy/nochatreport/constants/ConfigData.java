@@ -12,6 +12,8 @@ public class ConfigData {
     public boolean permissionAutoAddOnJoin;
     public String replaceMessagePermission;
     public String noIgnorePermission;
+    public String showGlobalStatusPermission;
+    public String changeGlobalStatusPermission;
 
     public void load(Configuration config) {
         instance = this;
@@ -21,6 +23,8 @@ public class ConfigData {
         permissionAutoAddOnJoin = config.getBoolean("permission_add_to_list_on_join");
         noIgnorePermission = config.getString("no_ignore_permission");
         replaceMessagePermission = config.getString("replace_permission");
+        showGlobalStatusPermission = config.getString("view_global_status_permission");
+        changeGlobalStatusPermission = config.getString("change_global_status_permission");
     }
     public static ConfigData getInstance(){
         return instance;

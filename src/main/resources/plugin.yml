@@ -4,8 +4,8 @@ version: ${project.version}
 api-version: 1.19
 commands:
     nochatreport:
-        description: Change your messages to system messages to remove reports
-        usage: /nochatreport
+        description: View Status, toggle your messages or toggle global messages
+        usage: /nochatreport <enable|disable|toggle|status>
         aliases:
         - ncr
         permission: btelnyy.command.nochatreport

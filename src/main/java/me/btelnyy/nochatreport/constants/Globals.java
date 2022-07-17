@@ -14,4 +14,6 @@ public class Globals {
     public static HashMap<String, List<String>> IgnoredPlayers = new HashMap<String, List<String>>();
     //this one should not change, its effectively legacy code, but it works perfectly
     public final static String Path = NoChatReport.getInstance().getDataFolder().toString() + "/PlayerData/";
+    //toggle the whole plugin with one command
+    public static Boolean pluginToggle = true;
 }

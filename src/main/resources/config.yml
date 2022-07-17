@@ -15,3 +15,9 @@ replace_permission: "btelnyy.replacemessages"
 
 # People with this permission cannot be ignored with /ignore
 no_ignore_permission: "btelnyy.noignore"
+
+# People with this permission may view global plugin status with /ncr status
+view_global_status_permission: btelnyy.showglobalstatus
+
+# People with this permission may disable or enable to the plugin globally with /ncr <enable|disable>
+change_global_status_permission: btelnyy.changeglobalstatus
