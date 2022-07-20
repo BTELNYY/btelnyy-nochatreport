@@ -38,10 +38,6 @@ public class NoChatReport extends JavaPlugin {
         // Self-explanatory
         instance = this;
 
-        // Generate files
-        fileManager = new FileManager(this);
-        fileManager.addFile(FileID.LANGUAGE, fileManager.create(null, "language.yml"));
-
         // Load config
         saveDefaultConfig();
         {
@@ -52,6 +48,10 @@ public class NoChatReport extends JavaPlugin {
             configData = new ConfigData();
             configData.load(config);
         }
+
+        // Language
+        fileManager = new FileManager(this);
+        fileManager.addFile(FileID.LANGUAGE, fileManager.create(null, configData.langFile));
 
         // Register commands
         registerCommandExecutor("nochatreport", new CommandNCR());

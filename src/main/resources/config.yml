@@ -1,3 +1,7 @@
+# Language File
+#   The file is found from /plugins/btelnyy-nochatreport/
+lang_file: "language.yml"
+
 # Make everyone's messages a system message (prevents reports)
 everyone_system_message: true
 

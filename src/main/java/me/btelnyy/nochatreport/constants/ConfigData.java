@@ -14,6 +14,7 @@ public class ConfigData {
     public String noIgnorePermission;
     public String showGlobalStatusPermission;
     public String changeGlobalStatusPermission;
+    public String langFile;
 
     public void load(Configuration config) {
         instance = this;
@@ -25,6 +26,8 @@ public class ConfigData {
         replaceMessagePermission = config.getString("replace_permission");
         showGlobalStatusPermission = config.getString("view_global_status_permission");
         changeGlobalStatusPermission = config.getString("change_global_status_permission");
+        langFile = config.getString("lang_file");
+
     }
     public static ConfigData getInstance(){
         return instance;
