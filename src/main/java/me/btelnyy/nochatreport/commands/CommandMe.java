@@ -28,7 +28,7 @@ public class CommandMe implements CommandExecutor {
             sender.sendMessage(Utils.coloured(language.getString("not_player")));
             return true;
         }
-        if (args.length > 1){
+        if (args.length < 1){
             player.sendMessage(invalidSyntax);
             return true;
         }

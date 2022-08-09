@@ -25,7 +25,7 @@ public class CommandNCR implements CommandExecutor{
             sender.sendMessage(Utils.coloured(language.getString("not_player")));
             return true;
         }
-        if(args.length < 2){
+        if(args.length < 1){
             sender.sendMessage(invalidSyntax);
             return true;
         }

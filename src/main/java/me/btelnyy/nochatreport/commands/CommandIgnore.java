@@ -29,7 +29,7 @@ public class CommandIgnore implements CommandExecutor, TabCompleter{
             sender.sendMessage(Utils.colored(language.getString("not_player")));
             return true;
         }
-        if(args.length < 2){
+        if(args.length < 1){
             sender.sendMessage(invalidSyntax);
             return true;
         }
