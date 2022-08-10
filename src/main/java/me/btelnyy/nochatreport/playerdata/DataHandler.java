@@ -312,13 +312,32 @@ public class DataHandler {
     public static void SaveAll() {
         NoChatReport.getInstance().log(Level.INFO, "Saving all cached players data....");
         for (String UUID : Globals.CachedPlayers.keySet()) {
-            SaveData(UUID);
+            Yaml yaml = new Yaml();
+            File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
+            try (FileWriter writer = new FileWriter(player_data)) {
+                PlayerData pd = Globals.CachedPlayers.get(UUID);
+                yaml.dump(pd, writer);
+                writer.close();
+                NoChatReport.getInstance().log(Level.INFO, "Saving " + UUID + "'s data");
+            }catch(Exception e){
+                NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to save Data for " + UUID + ": " + e.getMessage());
+            }
         }
     }
 
     public static void ServerShutdown() {
-        for (String key : Globals.CachedPlayers.keySet()) {
-            DataHandler.SaveAndRemoveData(key);
+        NoChatReport.getInstance().log(Level.INFO, "Saving all cached players data....");
+        for (String UUID : Globals.CachedPlayers.keySet()) {
+            Yaml yaml = new Yaml();
+            File player_data = new File(path + generatePlayerFolder(UUID) + "/" + UUID + ".yml");
+            try (FileWriter writer = new FileWriter(player_data)) {
+                PlayerData pd = Globals.CachedPlayers.get(UUID);
+                yaml.dump(pd, writer);
+                writer.close();
+                NoChatReport.getInstance().log(Level.INFO, "Saving " + UUID + "'s data");
+            }catch(Exception e){
+                NoChatReport.getInstance().log(java.util.logging.Level.WARNING, "An error occured when trying to save Data for " + UUID + ": " + e.getMessage());
+            }
         }
     }
 }

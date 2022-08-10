@@ -35,6 +35,10 @@ public class CommandMsg implements CommandExecutor, TabCompleter{
             sender.sendMessage(invalidSyntax);
             return true;
         }
+        if(Bukkit.getPlayer(args[0]) == null){
+            player.sendMessage(Utils.colored(language.getString("player_not_found")));
+            return true;
+        }
         Player target = Bukkit.getPlayer(args[0]);
         if (target == null){
             player.sendMessage(Utils.coloured(language.getString("player_not_found")));

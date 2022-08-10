@@ -30,7 +30,7 @@ public class CommandNCR implements CommandExecutor{
             return true;
         }
         UUID uuid = player.getUniqueId();
-        switch(args[1]){
+        switch(args[0]){
             default:
                 sender.sendMessage(invalidSyntax);
                 return true;

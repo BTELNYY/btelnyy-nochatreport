@@ -33,6 +33,10 @@ public class CommandUnignore implements CommandExecutor, TabCompleter{
             sender.sendMessage(invalidSyntax);
             return true;
         }
+        if(Bukkit.getPlayer(args[0]) == null){
+            player.sendMessage(Utils.colored(language.getString("player_not_found")));
+            return true;
+        }
         Player target = Bukkit.getPlayer(args[0]);
         if(player == target){
             player.sendMessage(Utils.colored(language.getString("not_on_self")));
