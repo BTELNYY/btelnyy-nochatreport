@@ -132,7 +132,7 @@ public class DataHandler {
         try {
             yamldata = Files.readString(Path.of(player_data.toString()));
         } catch (IOException e1) {
-            e1.printStackTrace();
+            NoChatReport.getInstance().log(Level.WARNING, "The async disk write function failed to create the data.yml file in time, however this is not an issue as a new data file was being created anyway.");
         }
         if (yamldata == "null") {
             DeleteData(UUID);
