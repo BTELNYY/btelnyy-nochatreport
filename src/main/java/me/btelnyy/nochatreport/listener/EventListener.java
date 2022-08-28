@@ -93,7 +93,8 @@ public class EventListener implements Listener {
         }
         for (Player p : event.getRecipients()) {
             p.sendMessage(message);
-            NoChatReport.getInstance().getLogger().info("[CHAT] " + message);
         }
+        //dumbass me put this in a for loop. **ACTUAL BRUH**
+        NoChatReport.getInstance().getLogger().info("[CHAT] " + message);
     }
 }
