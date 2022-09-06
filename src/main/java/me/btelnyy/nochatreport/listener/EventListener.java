@@ -23,6 +23,7 @@ import org.bukkit.event.player.PlayerKickEvent;
 public class EventListener implements Listener {
     private static final Configuration language = NoChatReport.getInstance().getFileManager().getFile(FileID.LANGUAGE).getConfiguration();
     private static final String MESSAGES_SPOOFED = Utils.coloured(language.getString("message_spoofed"));
+    private static final String MESSAGES_SPOOFED_FORCED = Utils.colored(language.getString("message_spoofed_forced"));
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
         if ((
@@ -34,7 +35,11 @@ public class EventListener implements Listener {
                 )
         ) {
             NoChatReport.getInstance().getSystemMessagePlayers().add(event.getPlayer().getUniqueId());
-            event.getPlayer().sendMessage(MESSAGES_SPOOFED);
+            if(event.getPlayer().hasPermission("btelnyy.command.nochatreport")){
+                event.getPlayer().sendMessage(MESSAGES_SPOOFED);
+            }else{
+                event.getPlayer().sendMessage(MESSAGES_SPOOFED_FORCED);
+            }
         }
         DataHandler.CreateNewDataFile(event.getPlayer());
         PlayerData pd = DataHandler.GetData(event.getPlayer()); //auto adds to the cached players Map in globals
