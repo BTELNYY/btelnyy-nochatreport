@@ -100,9 +100,6 @@ public class EventListener implements Listener {
             }
             event.getRecipients().clear();
             for(Player p : pset){
-                if(p == event.getPlayer()){
-                    continue;
-                }
                 p.sendMessage(message);
             }
             //Shouldn't be needed since the event is not cancelled, so the Vanilla logger
