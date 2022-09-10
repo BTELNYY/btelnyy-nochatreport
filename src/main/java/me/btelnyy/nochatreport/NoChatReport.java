@@ -1,11 +1,6 @@
 package me.btelnyy.nochatreport;
 
-import me.btelnyy.nochatreport.commands.CommandIgnore;
-import me.btelnyy.nochatreport.commands.CommandIgnoreList;
-import me.btelnyy.nochatreport.commands.CommandMe;
-import me.btelnyy.nochatreport.commands.CommandMsg;
-import me.btelnyy.nochatreport.commands.CommandNCR;
-import me.btelnyy.nochatreport.commands.CommandUnignore;
+import me.btelnyy.nochatreport.commands.*;
 import me.btelnyy.nochatreport.constants.ConfigData;
 import me.btelnyy.nochatreport.listener.EventListener;
 import me.btelnyy.nochatreport.playerdata.DataHandler;
@@ -62,6 +57,7 @@ public class NoChatReport extends JavaPlugin {
         registerCommandExecutor("ignore", new CommandIgnore(), new CommandIgnore());
         registerCommandExecutor("unignore", new CommandUnignore(), new CommandUnignore());
         registerCommandExecutor("ignorelist", new CommandIgnoreList());
+        registerCommandExecutor("reply", new CommandReply());
 
         // SnakeYAML fix
         Thread.currentThread().setContextClassLoader(this.getClassLoader());

@@ -1,6 +1,7 @@
 package me.btelnyy.nochatreport.listener;
 
 import me.btelnyy.nochatreport.NoChatReport;
+import me.btelnyy.nochatreport.constants.ConfigData;
 import me.btelnyy.nochatreport.constants.Globals;
 import me.btelnyy.nochatreport.playerdata.PlayerData;
 import me.btelnyy.nochatreport.playerdata.DataHandler;
@@ -10,6 +11,7 @@ import me.btelnyy.nochatreport.service.file_manager.FileID;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -63,6 +65,7 @@ public class EventListener implements Listener {
                 Globals.IgnoredPlayers.get(UUID).remove(event.getPlayer().getUniqueId().toString());
             }
         }
+        Globals.ReplyMap.remove(event.getPlayer());
     }
 
     /*
@@ -86,6 +89,27 @@ public class EventListener implements Listener {
     }
 
     static void replaceMessage(AsyncPlayerChatEvent event){
+        //Discord SRV fix
+        if(ConfigData.getInstance().useAlternativeReplaceMethod){
+            String message = String.format(event.getFormat(), event.getPlayer().getDisplayName(), event.getMessage());
+            Set<Player> pset = event.getRecipients();
+            if(Globals.IgnoredPlayers.get(event.getPlayer().getUniqueId().toString()) != null){
+                for(String p : Globals.IgnoredPlayers.get(event.getPlayer().getUniqueId().toString())){
+                   pset.remove(Bukkit.getPlayer(p));
+                }
+            }
+            event.getRecipients().clear();
+            for(Player p : pset){
+                if(p == event.getPlayer()){
+                    continue;
+                }
+                p.sendMessage(message);
+            }
+            //Shouldn't be needed since the event is not cancelled, so the Vanilla logger
+            //will pick it up normally.
+            //NoChatReport.getInstance().getLogger().info("[CHAT] " + message);
+            return;
+        }
         // Cancel the event itself, so it there won't be duplicate messages
         event.setCancelled(true);
 

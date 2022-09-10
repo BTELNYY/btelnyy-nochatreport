@@ -52,6 +52,13 @@ public class CommandMsg implements CommandExecutor, TabCompleter{
         }
         target.sendMessage(Utils.colored(formatMessage(language.getString("command_msg.target_message_format"), player, target, args)));
         player.sendMessage(Utils.colored(formatMessage(language.getString("command_msg.sender_message_format"), player, target, args)));
+        //add reply hashmap
+        if(Globals.ReplyMap.containsKey(target)){
+            Globals.ReplyMap.remove(target);
+            Globals.ReplyMap.put(target, player);
+        }else{
+            Globals.ReplyMap.put(target, player);
+        }
         return true;
     }
     @Override

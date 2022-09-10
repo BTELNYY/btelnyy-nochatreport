@@ -13,6 +13,12 @@ commands:
         description: Message another user without them being able to report you
         usage: /msg <player> <message>
         permission: btelnyy.command.msg
+    reply:
+        description: Reply to a message sent by another user
+        usage: /reply <message>
+        aliases:
+        - r
+        permission: btelnyy.command.reply
     tell:
         description: Message another user without them being able to report you
         usage: /msg <player> <message>

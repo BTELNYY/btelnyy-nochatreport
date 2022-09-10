@@ -25,3 +25,6 @@ view_global_status_permission: btelnyy.showglobalstatus
 
 # People with this permission may disable or enable to the plugin globally with /ncr <enable|disable>
 change_global_status_permission: btelnyy.changeglobalstatus
+
+# Use a different replace method? (This would work better with DiscordSRV)
+use_alternative_replace_method: false

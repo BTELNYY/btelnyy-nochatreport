@@ -10,6 +10,7 @@ public class ConfigData {
     public boolean operatorsForcedToUse;
     public boolean operatorAutoAddOnJoin;
     public boolean permissionAutoAddOnJoin;
+    public boolean useAlternativeReplaceMethod;
     public String replaceMessagePermission;
     public String noIgnorePermission;
     public String showGlobalStatusPermission;
@@ -27,6 +28,7 @@ public class ConfigData {
         showGlobalStatusPermission = config.getString("view_global_status_permission");
         changeGlobalStatusPermission = config.getString("change_global_status_permission");
         langFile = config.getString("lang_file");
+        useAlternativeReplaceMethod = config.getBoolean("use_alternative_replace_method");
 
     }
     public static ConfigData getInstance(){
