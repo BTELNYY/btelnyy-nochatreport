@@ -11,7 +11,6 @@ import me.btelnyy.nochatreport.service.file_manager.FileID;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -92,15 +91,14 @@ public class EventListener implements Listener {
         //Discord SRV fix
         if(ConfigData.getInstance().useAlternativeReplaceMethod){
             String message = String.format(event.getFormat(), event.getPlayer().getDisplayName(), event.getMessage());
-            Set<Player> pset = event.getRecipients();
             if(Globals.IgnoredPlayers.get(event.getPlayer().getUniqueId().toString()) != null){
                 for(String p : Globals.IgnoredPlayers.get(event.getPlayer().getUniqueId().toString())){
-                   pset.remove(Bukkit.getPlayer(p));
+                   event.getRecipients().remove(Bukkit.getPlayer(p));
                 }
             }
-            event.getRecipients().clear();
-            for(Player p : pset){
+            for(Player p : event.getRecipients()){
                 p.sendMessage(message);
+                event.getRecipients().remove(p);
             }
             //Shouldn't be needed since the event is not cancelled, so the Vanilla logger
             //will pick it up normally.
