@@ -21,10 +21,10 @@ replace_permission: "btelnyy.replacemessages"
 no_ignore_permission: "btelnyy.noignore"
 
 # People with this permission may view global plugin status with /ncr status
-view_global_status_permission: btelnyy.showglobalstatus
+view_global_status_permission: "btelnyy.showglobalstatus"
 
 # People with this permission may disable or enable to the plugin globally with /ncr <enable|disable>
-change_global_status_permission: btelnyy.changeglobalstatus
+change_global_status_permission: "btelnyy.changeglobalstatus"
 
 # Use a different replace method? (This would work better with DiscordSRV)
 use_alternative_replace_method: false
