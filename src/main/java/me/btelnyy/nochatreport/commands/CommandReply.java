@@ -31,11 +31,11 @@ public class CommandReply implements CommandExecutor{
             return true;
         }
         if(!Globals.ReplyMap.containsKey(player)){
-            player.sendMessage(language.getString("no_reply_target"));
+            player.sendMessage(Utils.colored(language.getString("no_reply_target")));
             return true;
         }
         if(!Globals.ReplyMap.get(player).isOnline()){
-            player.sendMessage(language.getString("reply_player_left"));
+            player.sendMessage(Utils.colored(language.getString("reply_player_left")));
             return true;
         }
         Player target = Globals.ReplyMap.get(player);
