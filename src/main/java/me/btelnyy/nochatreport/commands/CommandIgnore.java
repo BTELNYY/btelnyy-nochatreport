@@ -1,5 +1,6 @@
 package me.btelnyy.nochatreport.commands;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -48,6 +49,9 @@ public class CommandIgnore implements CommandExecutor, TabCompleter{
         }
         PlayerData pdata = DataHandler.GetData(player);
         pdata.ignoredUUIDs.add(target.getUniqueId().toString());
+        if(Globals.IgnoredPlayers.get(target.getUniqueId().toString()) == null){
+            Globals.IgnoredPlayers.put(target.getUniqueId().toString(), new ArrayList<String>());
+        }
         Globals.IgnoredPlayers.get(target.getUniqueId().toString()).add(player.getUniqueId().toString());
         player.sendMessage(Utils.colored(language.getString("ignored_success").replace("{player_name}", target.getName())));
         return true;

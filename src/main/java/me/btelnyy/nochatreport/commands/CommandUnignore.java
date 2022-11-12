@@ -1,5 +1,6 @@
 package me.btelnyy.nochatreport.commands;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,8 +48,24 @@ public class CommandUnignore implements CommandExecutor, TabCompleter{
             return true;
         }
         PlayerData pdata = DataHandler.GetData(player);
-        pdata.ignoredUUIDs.remove(target.getUniqueId().toString());
-        Globals.IgnoredPlayers.get(target.getUniqueId().toString()).remove(player.getUniqueId().toString());
+        //verify that you even ignored that player in the first place
+        if(pdata.ignoredUUIDs.contains(target.getUniqueId().toString())){
+            pdata.ignoredUUIDs.remove(target.getUniqueId().toString());
+        }else{
+            player.sendMessage(Utils.colored(language.getString("player_not_ignored")));
+            return true;
+        }
+        //verify that the data is not null and does not cause more errors
+        if(Globals.IgnoredPlayers.get(target.getUniqueId().toString()) == null){
+            Globals.IgnoredPlayers.put(target.getUniqueId().toString(), new ArrayList<String>());
+        }
+        // Is this a strange fix? yes, does it work? also yes
+        try
+        {
+            Globals.IgnoredPlayers.get(target.getUniqueId().toString()).remove(player.getUniqueId().toString());    
+        } catch(Exception ex){
+            ex.printStackTrace();   
+        }
         player.sendMessage(Utils.colored(language.getString("unignored_success").replace("{player_name}", target.getName())));
         return true;
     }
