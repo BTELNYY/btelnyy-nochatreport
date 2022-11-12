@@ -7,6 +7,7 @@ no_permission: "&cError: &7You do not have permission to run this command. Conta
 message_spoofed: "&8Your messages are automatically being spoofed, use /nochatreport toggle to stop this."
 message_spoofed_forced: "&8Your messages are automatically being spoofed, You cannot disable this."
 cannot_message_player: "&cError: &7You cannot message this player."
+player_not_ignored: "&cError: &7Cannot unignore an user which is not ignored."
 removed_from_sys_list: "&c - &7Removed you from the system messages list. (Your messages will now be reportable!)"
 added_to_sys_list: "&a + &7Added you to the system messages list. (Your messages will now be spoofed to appear as if the server sent them!)"
 not_on_self: "&cError: &7You cannot run this command on yourself."
