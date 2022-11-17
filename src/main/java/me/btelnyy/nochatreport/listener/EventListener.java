@@ -57,7 +57,7 @@ public class EventListener implements Listener {
     }
     @EventHandler
     public void onLeave(PlayerKickEvent event){
-        PlayerData pd = DataHandler.GetData(event.getPlayer()); //auto adds to the cached players Map in globals
+        PlayerData pd = DataHandler.GetData(event.getPlayer()); //auto removes to the cached players Map in globals
         for(String UUID : pd.ignoredUUIDs){
             if(!Globals.IgnoredPlayers.containsKey(UUID)){
                 return;
@@ -91,10 +91,13 @@ public class EventListener implements Listener {
     static void replaceMessage(AsyncPlayerChatEvent event){
         //Discord SRV fix
         if(ConfigData.getInstance().useAlternativeReplaceMethod){
+            //get string
             String message = String.format(event.getFormat(), event.getPlayer().getDisplayName(), event.getMessage());
+            //people who should get the message
             Set<Player> pset = event.getRecipients();
+            //if the 
             if(Globals.IgnoredPlayers.get(event.getPlayer().getUniqueId().toString()) != null){
-                for(String p : Globals.IgnoredPlayers.get(event.getPlayer().getUniqueId().toString())){
+                for(String p : Globals.CachedPlayers.get(event.getPlayer().getUniqueId().toString()).ignoredUUIDs){
                    pset.remove(Bukkit.getPlayer(p));
                 }
             }
@@ -113,7 +116,7 @@ public class EventListener implements Listener {
         // Send the message to all players who were supposed to get it
         String message = String.format(event.getFormat(), event.getPlayer().getDisplayName(), event.getMessage());
         if(Globals.IgnoredPlayers.get(event.getPlayer().getUniqueId().toString()) != null){
-            for(String p : Globals.IgnoredPlayers.get(event.getPlayer().getUniqueId().toString())){
+            for(String p : Globals.CachedPlayers.get(event.getPlayer().getUniqueId().toString()).ignoredUUIDs){
                 event.getRecipients().remove(Bukkit.getPlayer(p));
             }
         }

@@ -12,6 +12,8 @@ public class Globals {
     //to reduce disk operations
     public static HashMap<String, PlayerData> CachedPlayers = new HashMap<String, PlayerData>();
     //for optimizations
+    //map is <user, people who ignored this user>
+    //why did I do this thing this way? Dont know. Good luck figuring it out.
     public static HashMap<String, List<String>> IgnoredPlayers = new HashMap<String, List<String>>();
     //for reply command
     public static HashMap<Player, Player> ReplyMap = new HashMap<Player, Player>();

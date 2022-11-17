@@ -15,6 +15,7 @@ cannot_ignore_staff: "&cError: &7You cannot ignore staff memebers. (If you have 
 ignored_success: "&7Player {player_name} has been ignored, you will no longer see chat messages or direct messages from this user."
 unignored_success: "&7Player {player_name} has been unignored, you will now see chat messages and direct messages from this user."
 ignorelist_result_message: "&7Ignore list: "
+ignore_target_already_ignored: "&cError: &7Player is already ignored."
 global_status_message: "&7Plugin status: {status}"
 local_status_message: "&7Plugin personal status: {status}"
 status_disabled: "&cDISABLED"

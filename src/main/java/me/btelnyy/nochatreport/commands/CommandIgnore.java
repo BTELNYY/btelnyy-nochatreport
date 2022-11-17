@@ -39,6 +39,10 @@ public class CommandIgnore implements CommandExecutor, TabCompleter{
             return true;
         }
         Player target = Bukkit.getPlayer(args[0]);
+        if(Globals.CachedPlayers.get(player.getUniqueId().toString()).ignoredUUIDs.contains(target.getUniqueId().toString())){
+            player.sendMessage(Utils.colored(language.getString("ignore_target_already_ignored")));
+            return true;
+        }
         if(player == target){
             player.sendMessage(Utils.colored(language.getString("not_on_self")));
             return true;
