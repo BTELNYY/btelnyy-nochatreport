@@ -31,25 +31,25 @@
 - Has the side effect of automatically correcting spaceing mistakes
 - Permission: `btelnyy.command.me`
 ## Config:
-> `everyone_system_messages: (true/false)`
+> `everyone_system_messages: (bool)`
 - Default: false
 - Force everyone's messages to be replaced with server messages
 
-> `operator_forced_to_use: (true/false)`
+> `operator_forced_to_use: (bool)`
 - Default: false
 - Operators will be required to have their chat replaced
 
-> `operator_add_to_list_on_join: (true/false)`
+> `operator_add_to_list_on_join: (bool)`
 - Default: true
 - Force operators to be added to the list of players which have their messages replaced when they join
 
-> `permission_add_to_list_on_join: (true/false)`
+> `permission_add_to_list_on_join: (bool)`
 - Default: true
 - Anyone with the above permission will automatically be added to the list of people which have their messages replaced.
 
-> `replace_permission: (permission)`
+> `replace_permission: (string permission)`
 - Default: "btelnyy.replacemessages"
 - People with this permission can have their messages replaced
 
-> `no_ignore_permission` (permission)
+> `no_ignore_permission (string permission)`
 - Prevent players with this permission from being ignored with `/ignore`
