@@ -101,7 +101,12 @@ public class EventListener implements Listener {
                    pset.remove(Bukkit.getPlayer(p));
                 }
             }
-            for(Player p : pset){
+            for(Player p : pset)
+            {
+                //try fix ignores not working
+                if(Globals.CachedPlayers.get(event.getPlayer().getUniqueId().toString()).ignoredUUIDs.contains(p.getUniqueId().toString())){
+                    continue;
+                }
                 p.sendMessage(message);
             }
             event.getRecipients().clear();
