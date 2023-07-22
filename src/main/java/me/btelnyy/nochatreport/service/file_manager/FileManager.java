@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-@SuppressWarnings("unused")
 public class FileManager {
     private final Map<String, ManagedFile> files;
     private final Plugin instance;

@@ -7,7 +7,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.File;
 import java.io.IOException;
 
-@SuppressWarnings("unused")
 public class ManagedFile {
     private File file;
     private FileConfiguration fileConfiguration;

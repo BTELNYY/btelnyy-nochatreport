@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-@SuppressWarnings("unused")
 public class Configuration {
     private static final Plugin instance = NoChatReport.getInstance();
     private final ConfigurationSection config;
