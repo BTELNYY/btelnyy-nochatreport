@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
+import org.yaml.snakeyaml.inspector.TagInspector;
 
 
 public class DataHandler {
@@ -101,7 +102,7 @@ public class DataHandler {
             GetData(UUID);
             return new PlayerData();
         }
-        Yaml yaml = new Yaml(new Constructor(PlayerData.class, new LoaderOptions()));
+        Yaml yaml = new Yaml(new Constructor(PlayerData.class, GetLoaderOptions()));
         if (player_data.exists()) {
             yamldata = null;
             try {
@@ -139,8 +140,8 @@ public class DataHandler {
             CreateNewDataFile(UUID);
             GetData(UUID);
             return new PlayerData();
-        }
-        Yaml yaml = new Yaml(new Constructor(PlayerData.class, new LoaderOptions()));
+        }        
+        Yaml yaml = new Yaml(new Constructor(PlayerData.class, GetLoaderOptions()));
         if (player_data.exists()) {
             yamldata = null;
             try {
@@ -340,4 +341,13 @@ public class DataHandler {
             }
         }
     }
+
+    public static LoaderOptions GetLoaderOptions(){
+        LoaderOptions options = new LoaderOptions();
+        TagInspector taginspector = 
+        tag -> tag.getClassName().equals(PlayerData.class.getName());
+        options.setTagInspector(taginspector);
+        return options;
+    }
+
 }
