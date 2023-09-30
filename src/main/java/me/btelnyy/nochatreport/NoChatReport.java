@@ -73,6 +73,7 @@ public class NoChatReport extends JavaPlugin {
         // GitHub message
         getLogger().info("Check out the project on GitHub! https://github.com/BTELNYY/btelnyy-nochatreport");
     }
+    
     @Override
     public void onDisable(){
         DataHandler.ServerShutdown();

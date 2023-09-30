@@ -9,7 +9,7 @@ commands:
         aliases:
         - ncr
         permission: btelnyy.command.nochatreport
-     msg:
+    msg:
         description: Message another user without them being able to report you
         usage: /msg <player> <message>
         permission: btelnyy.command.msg
