@@ -1,7 +1,7 @@
 name: btelnyy-nochatreport
 main: me.btelnyy.nochatreport.NoChatReport
 version: ${project.version}
-api-version: "1.20.1"
+api-version: "1.20"
 commands:
     nochatreport:
         description: View Status, toggle your messages or toggle global messages
@@ -9,7 +9,7 @@ commands:
         aliases:
         - ncr
         permission: btelnyy.command.nochatreport
-    msg:
+     msg:
         description: Message another user without them being able to report you
         usage: /msg <player> <message>
         permission: btelnyy.command.msg
