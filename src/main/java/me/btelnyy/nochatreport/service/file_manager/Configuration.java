@@ -131,4 +131,3 @@ public class Configuration {
         instance.getLogger().warning(message);
     }
 }
-
