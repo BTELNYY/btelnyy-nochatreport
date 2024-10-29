@@ -2,7 +2,8 @@ package me.btelnyy.nochatreport.constants;
 
 import me.btelnyy.nochatreport.service.file_manager.Configuration;
 
-public class ConfigData {
+public class ConfigData
+{
     private static ConfigData instance;
 
 
@@ -17,7 +18,13 @@ public class ConfigData {
     public String changeGlobalStatusPermission;
     public String langFile;
 
-    public void load(Configuration config) {
+    public static ConfigData getInstance()
+    {
+        return instance;
+    }
+
+    public void load(Configuration config)
+    {
         instance = this;
         everyoneSysMessages = config.getBoolean("everyone_system_message");
         operatorsForcedToUse = config.getBoolean("operator_forced_to_use");
@@ -30,8 +37,5 @@ public class ConfigData {
         langFile = config.getString("lang_file");
         useAlternativeReplaceMethod = config.getBoolean("use_alternative_replace_method");
 
-    }
-    public static ConfigData getInstance(){
-        return instance;
     }
 }

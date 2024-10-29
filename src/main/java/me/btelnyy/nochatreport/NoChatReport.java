@@ -17,19 +17,23 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 
-public class NoChatReport extends JavaPlugin {
-
+public class NoChatReport extends JavaPlugin
+{
     // An instance of the plugin, so we don't need to make everything static
     private static NoChatReport instance;
-
+    private final LinkedList<UUID> systemMessagePlayers = new LinkedList<>();
     private Configuration config;
     private ConfigData configData;
     private FileManager fileManager;
 
-    private final LinkedList<UUID> systemMessagePlayers = new LinkedList<>();
+    public static NoChatReport getInstance()
+    {
+        return instance;
+    }
 
     @Override
-    public void onEnable() {
+    public void onEnable()
+    {
         // Self-explanatory
         instance = this;
 
@@ -66,47 +70,50 @@ public class NoChatReport extends JavaPlugin {
         DataHandler.GenerateFolder();
 
 
-
         // Register events
         getServer().getPluginManager().registerEvents(new EventListener(), this);
 
         // GitHub message
         getLogger().info("Check out the project on GitHub! https://github.com/BTELNYY/btelnyy-nochatreport");
     }
-    
+
     @Override
-    public void onDisable(){
+    public void onDisable()
+    {
         DataHandler.ServerShutdown();
     }
 
-
-
-
-    public void log(Level level, Object message){
+    public void log(Level level, Object message)
+    {
         getLogger().log(level, message.toString());
     }
 
-    private void registerCommandExecutor(String commandName, CommandExecutor commandExecutor) {
+    private void registerCommandExecutor(String commandName, CommandExecutor commandExecutor)
+    {
         PluginCommand command = getCommand(commandName);
 
         /*
         If the command is null java will trigger an error any ways, the goal with this is to
         not trigger the error, so calling an explicit NullPointerError does not make things any better
          */
-        if (command == null) {
+        if (command == null)
+        {
             getLogger().severe("The command " + commandName + " could not be registered, please contact the plugin authors " + getDescription().getAuthors());
             return;
         }
         command.setExecutor(commandExecutor);
     }
-    private void registerCommandExecutor(String commandName, CommandExecutor commandExecutor, TabCompleter completer) {
+
+    private void registerCommandExecutor(String commandName, CommandExecutor commandExecutor, TabCompleter completer)
+    {
         PluginCommand command = getCommand(commandName);
 
         /*
         If the command is null java will trigger an error any ways, the goal with this is to
         not trigger the error, so calling an explicit NullPointerError does not make things any better
          */
-        if (command == null) {
+        if (command == null)
+        {
             getLogger().severe("The command " + commandName + " could not be registered, please contact the plugin authors " + getDescription().getAuthors());
             return;
         }
@@ -114,19 +121,18 @@ public class NoChatReport extends JavaPlugin {
         command.setExecutor(commandExecutor);
     }
 
-    public static NoChatReport getInstance() {
-        return instance;
-    }
-
-    public ConfigData getConfigData() {
+    public ConfigData getConfigData()
+    {
         return configData;
     }
 
-    public List<UUID> getSystemMessagePlayers() {
+    public List<UUID> getSystemMessagePlayers()
+    {
         return systemMessagePlayers;
     }
 
-    public FileManager getFileManager() {
+    public FileManager getFileManager()
+    {
         return fileManager;
     }
 }

@@ -36,7 +36,7 @@ commands:
         usage: /ignore <player>
         permission: btelnyy.command.ignore
     unignore:
-        descriptiion: Remove a player from your ignore list
+        description: Remove a player from your ignore list
         usage: /unignore <player>
         permission: btelnyy.command.unignore
     ignorelist:

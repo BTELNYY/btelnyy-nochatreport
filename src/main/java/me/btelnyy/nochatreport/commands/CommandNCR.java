@@ -13,53 +13,76 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class CommandNCR implements CommandExecutor{
+public class CommandNCR implements CommandExecutor
+{
     private static final String USAGE = "/ncr|nochatreport <status|enable|disable|toggle>";
     private static String invalidSyntax;
-    public CommandNCR(){
+
+    public CommandNCR()
+    {
         updateMessages();
     }
-    public boolean onCommand(CommandSender sender, Command command, String arg, String[] args){
+
+    public static void updateMessages()
+    {
         Configuration language = NoChatReport.getInstance().getFileManager().getFile(FileID.LANGUAGE).getConfiguration();
-        if (!(sender instanceof Player player)){
+        invalidSyntax = Utils.coloured(language.getString("invalid_syntax")
+                .replace("{usage}", USAGE));
+    }
+
+    public boolean onCommand(CommandSender sender, Command command, String arg, String[] args)
+    {
+        Configuration language = NoChatReport.getInstance().getFileManager().getFile(FileID.LANGUAGE).getConfiguration();
+        if (!(sender instanceof Player player))
+        {
             sender.sendMessage(Utils.coloured(language.getString("not_player")));
             return true;
         }
-        if(args.length < 1){
+        if (args.length < 1)
+        {
             sender.sendMessage(invalidSyntax);
             return true;
         }
         UUID uuid = player.getUniqueId();
-        switch(args[0]){
+        switch (args[0])
+        {
             default:
                 sender.sendMessage(invalidSyntax);
                 return true;
             case "status":
-                if(NoChatReport.getInstance().getSystemMessagePlayers().contains(uuid)){
+                if (NoChatReport.getInstance().getSystemMessagePlayers().contains(uuid))
+                {
                     player.sendMessage(Utils.colored(language.getString("local_status_message").replace("{status}", language.getString("status_enabled"))));
-                }else{
+                } else
+                {
                     player.sendMessage(Utils.colored(language.getString("local_status_message").replace("{status}", language.getString("status_disabled"))));
                 }
-                if(!player.hasPermission(ConfigData.getInstance().showGlobalStatusPermission)){
+                if (!player.hasPermission(ConfigData.getInstance().showGlobalStatusPermission))
+                {
                     return true;
                 }
-                if(Globals.pluginToggle){
+                if (Globals.pluginToggle)
+                {
                     player.sendMessage(Utils.colored(language.getString("global_status_message").replace("{status}", language.getString("status_enabled"))));
-                }else{
+                } else
+                {
                     player.sendMessage(Utils.colored(language.getString("global_status_message").replace("{status}", language.getString("status_disabled"))));
                 }
                 return true;
             case "toggle":
-                if (NoChatReport.getInstance().getSystemMessagePlayers().contains(uuid)){
+                if (NoChatReport.getInstance().getSystemMessagePlayers().contains(uuid))
+                {
                     NoChatReport.getInstance().getSystemMessagePlayers().remove(uuid);
                     player.sendMessage(Utils.coloured(language.getString("removed_from_sys_list")));
-                } else {
+                } else
+                {
                     NoChatReport.getInstance().getSystemMessagePlayers().add(uuid);
                     player.sendMessage(Utils.coloured(language.getString("added_to_sys_list")));
                 }
                 return true;
             case "disable":
-                if(!player.hasPermission(ConfigData.getInstance().changeGlobalStatusPermission)){
+                if (!player.hasPermission(ConfigData.getInstance().changeGlobalStatusPermission))
+                {
                     player.sendMessage(Utils.colored(language.getString("no_permission")));
                     return true;
                 }
@@ -67,7 +90,8 @@ public class CommandNCR implements CommandExecutor{
                 player.sendMessage(Utils.colored(language.getString("disabled_plugin")));
                 return true;
             case "enable":
-                if(!player.hasPermission(ConfigData.getInstance().changeGlobalStatusPermission)){
+                if (!player.hasPermission(ConfigData.getInstance().changeGlobalStatusPermission))
+                {
                     player.sendMessage(Utils.colored(language.getString("no_permission")));
                     return true;
                 }
@@ -75,10 +99,5 @@ public class CommandNCR implements CommandExecutor{
                 player.sendMessage(Utils.colored(language.getString("enabled_plugin")));
                 return true;
         }
-    }
-    public static void updateMessages() {
-        Configuration language = NoChatReport.getInstance().getFileManager().getFile(FileID.LANGUAGE).getConfiguration();
-        invalidSyntax = Utils.coloured(language.getString("invalid_syntax")
-                .replace("{usage}", USAGE));
     }
 }
