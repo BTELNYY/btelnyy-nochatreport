@@ -6,7 +6,7 @@
 
   <groupId>me.btelnyy</groupId>
   <artifactId>btelnyy-nochatreport</artifactId>
-  <version>1.1.7</version>
+  <version>1.1.8</version>
 
   <properties>
     <java.version>21</java.version>
@@ -24,7 +24,7 @@
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.21.3-R0.1-SNAPSHOT</version>
+      <version>1.21.1-R0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
 
