@@ -1,4 +1,4 @@
-package me.btelnyy.nochatreport.service.file_manager;
+package com.btelnyy.nochatreport.service.file_manager;
 
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;

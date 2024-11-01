@@ -1,4 +1,4 @@
-package me.btelnyy.nochatreport.service;
+package com.btelnyy.nochatreport.service;
 
 import org.bukkit.ChatColor;
 

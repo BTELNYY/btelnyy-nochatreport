@@ -1,7 +1,7 @@
-package me.btelnyy.nochatreport.playerdata;
+package com.btelnyy.nochatreport.playerdata;
 
-import me.btelnyy.nochatreport.NoChatReport;
-import me.btelnyy.nochatreport.constants.Globals;
+import com.btelnyy.nochatreport.NoChatReport;
+import com.btelnyy.nochatreport.constants.Globals;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.yaml.snakeyaml.LoaderOptions;

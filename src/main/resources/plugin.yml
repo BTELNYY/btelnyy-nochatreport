@@ -1,5 +1,5 @@
 name: btelnyy-nochatreport
-main: me.btelnyy.nochatreport.NoChatReport
+main: com.btelnyy.nochatreport.NoChatReport
 version: ${project.version}
 api-version: "1.21"
 commands:

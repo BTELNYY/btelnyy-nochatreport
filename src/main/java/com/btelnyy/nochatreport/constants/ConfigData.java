@@ -1,6 +1,6 @@
-package me.btelnyy.nochatreport.constants;
+package com.btelnyy.nochatreport.constants;
 
-import me.btelnyy.nochatreport.service.file_manager.Configuration;
+import com.btelnyy.nochatreport.service.file_manager.Configuration;
 
 public class ConfigData
 {

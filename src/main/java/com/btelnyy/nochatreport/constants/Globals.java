@@ -1,7 +1,7 @@
-package me.btelnyy.nochatreport.constants;
+package com.btelnyy.nochatreport.constants;
 
-import me.btelnyy.nochatreport.NoChatReport;
-import me.btelnyy.nochatreport.playerdata.PlayerData;
+import com.btelnyy.nochatreport.NoChatReport;
+import com.btelnyy.nochatreport.playerdata.PlayerData;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;

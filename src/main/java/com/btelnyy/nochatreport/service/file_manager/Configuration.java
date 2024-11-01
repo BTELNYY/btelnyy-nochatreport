@@ -1,6 +1,6 @@
-package me.btelnyy.nochatreport.service.file_manager;
+package com.btelnyy.nochatreport.service.file_manager;
 
-import me.btelnyy.nochatreport.NoChatReport;
+import com.btelnyy.nochatreport.NoChatReport;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;

@@ -1,12 +1,12 @@
-package me.btelnyy.nochatreport;
+package com.btelnyy.nochatreport;
 
-import me.btelnyy.nochatreport.commands.*;
-import me.btelnyy.nochatreport.constants.ConfigData;
-import me.btelnyy.nochatreport.listener.EventListener;
-import me.btelnyy.nochatreport.playerdata.DataHandler;
-import me.btelnyy.nochatreport.service.file_manager.Configuration;
-import me.btelnyy.nochatreport.service.file_manager.FileID;
-import me.btelnyy.nochatreport.service.file_manager.FileManager;
+import com.btelnyy.nochatreport.commands.*;
+import com.btelnyy.nochatreport.constants.ConfigData;
+import com.btelnyy.nochatreport.listener.EventListener;
+import com.btelnyy.nochatreport.playerdata.DataHandler;
+import com.btelnyy.nochatreport.service.file_manager.Configuration;
+import com.btelnyy.nochatreport.service.file_manager.FileID;
+import com.btelnyy.nochatreport.service.file_manager.FileManager;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;

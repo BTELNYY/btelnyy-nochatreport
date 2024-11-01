@@ -1,4 +1,4 @@
-package me.btelnyy.nochatreport.playerdata;
+package com.btelnyy.nochatreport.playerdata;
 
 import java.util.ArrayList;
 import java.util.List;
