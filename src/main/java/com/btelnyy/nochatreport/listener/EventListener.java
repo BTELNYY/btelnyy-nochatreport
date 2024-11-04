@@ -9,6 +9,7 @@ import com.btelnyy.nochatreport.service.Utils;
 import com.btelnyy.nochatreport.service.file_manager.Configuration;
 import com.btelnyy.nochatreport.service.file_manager.FileID;
 import org.bukkit.Bukkit;
+import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
